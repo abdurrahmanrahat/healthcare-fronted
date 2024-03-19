@@ -1,6 +1,12 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 
+type TSpecialist = {
+  id: string;
+  title: string;
+  icon: string;
+};
+
 const Specialist = async () => {
   const res = await fetch("http://localhost:5000/api/v1/specialties", {
     next: {
@@ -33,7 +39,7 @@ const Specialist = async () => {
 
         {/* display data in card */}
         <Stack direction="row" gap={4} mt={5}>
-          {specialists?.map((item) => (
+          {specialists?.map((item: TSpecialist) => (
             <Box
               key={item.id}
               sx={{
