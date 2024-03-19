@@ -1,4 +1,32 @@
+import assets from "@/assets";
 import { Box, Container, Typography } from "@mui/material";
+
+const servicesData = [
+  {
+    imageSrc: assets.svgs.award,
+    title: "Award Winning Service",
+    description:
+      "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
+  },
+  {
+    imageSrc: assets.svgs.award,
+    title: "Best Quality Pregnancy Care",
+    description:
+      "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
+  },
+  {
+    imageSrc: assets.svgs.award,
+    title: "Complete Medical Equipments",
+    description:
+      "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
+  },
+  {
+    imageSrc: assets.svgs.award,
+    title: "Dedicated Emergency Care",
+    description:
+      "Duas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui offici",
+  },
+];
 
 const WhyUs = () => {
   return (
