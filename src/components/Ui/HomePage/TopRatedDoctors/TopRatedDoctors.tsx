@@ -1,20 +1,21 @@
 import { TDoctor } from "@/types";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import {
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Container,
   Grid,
   Typography,
 } from "@mui/material";
+import Image from "next/image";
 
 const TopRatedDoctors = async () => {
   const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
   const { data: doctors } = await res.json();
-  console.log(doctors);
+  // console.log(doctors);
 
   return (
     <Box
@@ -44,34 +45,53 @@ const TopRatedDoctors = async () => {
       </Box>
 
       {/* doctor card */}
-      <Container>
+      <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
           {doctors?.map((doctor: TDoctor) => (
             <Grid item key={doctor.id} md={4}>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                  title="green iguana"
-                />
+              <Card>
+                <Box>
+                  <Image
+                    src={doctor.profilePhoto}
+                    width={500}
+                    height={100}
+                    alt="Image"
+                  />
+                </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {doctor.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    {doctor.qualification}, {doctor.designation}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    <LocationOnOutlinedIcon /> {doctor.address}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Share</Button>
-                  <Button size="small">Learn More</Button>
+                <CardActions
+                  sx={{
+                    justifyContent: "space-between",
+                    px: 2,
+                    paddingBottom: "20px",
+                  }}
+                >
+                  <Button>Book Now</Button>
+                  <Button variant="outlined">View Profile</Button>
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
+
+        <Box
+          pt={5}
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          <Button variant="outlined">View All Doctors</Button>
+        </Box>
       </Container>
     </Box>
   );
