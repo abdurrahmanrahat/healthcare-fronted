@@ -1,6 +1,20 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 
-const TopRatedDoctors = () => {
+const TopRatedDoctors = async () => {
+  const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
+  const { data: doctors } = await res.json();
+  console.log(doctors);
+
   return (
     <Box
       sx={{
@@ -27,6 +41,37 @@ const TopRatedDoctors = () => {
           top-quality surgery facilities right here.
         </Typography>
       </Box>
+
+      {/* doctor card */}
+      <Container>
+        <Grid container spacing={2}>
+          {doctors?.map((doctor) => (
+            <Grid item key={doctor.id} md={4}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  sx={{ height: 140 }}
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  title="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Lizard
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Lizards are a widespread group of squamate reptiles, with
+                    over 6,000 species, ranging across all continents except
+                    Antarctica
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Share</Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </Box>
   );
 };
