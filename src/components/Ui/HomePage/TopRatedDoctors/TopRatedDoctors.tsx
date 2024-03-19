@@ -1,3 +1,4 @@
+import { TDoctor } from "@/types";
 import {
   Box,
   Button,
@@ -45,7 +46,7 @@ const TopRatedDoctors = async () => {
       {/* doctor card */}
       <Container>
         <Grid container spacing={2}>
-          {doctors?.map((doctor) => (
+          {doctors?.map((doctor: TDoctor) => (
             <Grid item key={doctor.id} md={4}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
