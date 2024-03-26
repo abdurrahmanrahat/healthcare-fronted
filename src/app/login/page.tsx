@@ -89,9 +89,11 @@ const LoginPage = () => {
 
               <Typography component="p" fontWeight={300}>
                 Don&apos;t Have an Account?{" "}
-                <Link href="/register" color="primary.main">
-                  Register
-                </Link>
+                <span className="text-[#1586FD] font-medium">
+                  <Link href="/register" color="primary.main">
+                    Register
+                  </Link>
+                </span>
               </Typography>
             </form>
           </Box>
