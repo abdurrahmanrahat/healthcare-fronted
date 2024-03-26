@@ -1,6 +1,15 @@
 import assets from "@/assets";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const LoginPage = () => {
   return (
@@ -38,6 +47,54 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </Stack>
+
+          {/* form field */}
+          <Box>
+            <form>
+              <Grid container spacing={2} my={1}>
+                <Grid item md={12}>
+                  <TextField
+                    label="Email"
+                    type="email"
+                    variant="outlined"
+                    size="small"
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid item md={12}>
+                  <TextField
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    size="small"
+                    fullWidth={true}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* forget password */}
+              <Typography textAlign="end" component="p" mb={1} fontWeight={300}>
+                Forgot Password?
+              </Typography>
+
+              {/* submit button */}
+              <Button
+                sx={{
+                  marginY: "16px",
+                }}
+                fullWidth={true}
+              >
+                Login
+              </Button>
+
+              <Typography component="p" fontWeight={300}>
+                Don&apos;t Have an Account?{" "}
+                <Link href="/register" color="primary.main">
+                  Register
+                </Link>
+              </Typography>
+            </form>
+          </Box>
         </Box>
       </Stack>
     </Container>
