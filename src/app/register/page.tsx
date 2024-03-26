@@ -13,13 +13,10 @@ import Link from "next/link";
 
 const RegisterPage = () => {
   return (
-    <Container
-      sx={{
-        padding: "50px",
-      }}
-    >
+    <Container>
       <Stack
         sx={{
+          height: "100vh",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -34,6 +31,7 @@ const RegisterPage = () => {
             textAlign: "center",
           }}
         >
+          {/* logo and text */}
           <Stack
             sx={{
               justifyContent: "center",
@@ -45,12 +43,12 @@ const RegisterPage = () => {
             </Box>
             <Box>
               <Typography variant="h6" fontWeight={600}>
-                Patient Register
+                Login PH HealthCare
               </Typography>
             </Box>
           </Stack>
 
-          {/* input field */}
+          {/* form field */}
           <Box>
             <form>
               <Grid container spacing={2} my={1}>
