@@ -1,5 +1,12 @@
 import assets from "@/assets";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 
 const RegisterPage = () => {
@@ -30,7 +37,7 @@ const RegisterPage = () => {
               alignItems: "center",
             }}
           >
-            <Box>
+            <Box mb={1}>
               <Image src={assets.svgs.logo} width={50} height={50} alt="logo" />
             </Box>
             <Box>
@@ -39,6 +46,57 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           </Stack>
+
+          {/* input field */}
+          <Box>
+            <Grid container spacing={2} my={1}>
+              <Grid item md={12}>
+                <TextField
+                  label="Name"
+                  type="text"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  label="Email"
+                  type="email"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  label="Contact Number"
+                  type="tel"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item md={6}>
+                <TextField
+                  label="Address"
+                  type="text"
+                  variant="outlined"
+                  size="small"
+                  fullWidth={true}
+                />
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
       </Stack>
     </Container>
