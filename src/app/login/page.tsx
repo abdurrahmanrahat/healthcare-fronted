@@ -2,6 +2,7 @@
 
 import assets from "@/assets";
 import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
 import {
   Box,
   Button,
@@ -36,8 +37,9 @@ const LoginPage = () => {
     try {
       const res = await userLogin(values);
       // console.log(res);
-      if (res.data.accessToken) {
+      if (res?.data?.accessToken) {
         toast.success(res.message);
+        storeUserInfo(res.data.accessToken);
         // router.push("/");
       }
     } catch (error: any) {
