@@ -1,7 +1,12 @@
+"use client";
+
+import { getUserInfo } from "@/services/auth.services";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
 const Navbar = () => {
+  const userInfo = getUserInfo();
+
   return (
     <Container>
       <Stack
