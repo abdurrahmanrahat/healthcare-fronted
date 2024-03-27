@@ -1,6 +1,7 @@
 "use client";
 
 import assets from "@/assets";
+import { registerPatient } from "@/services/actions/registerPatient";
 import { modifyPayload } from "@/utils/modifyPayload";
 import {
   Box,
@@ -32,9 +33,17 @@ const RegisterPage = () => {
     watch,
     formState: { errors },
   } = useForm<TPatientRegisterFormData>();
-  const onSubmit: SubmitHandler<TPatientRegisterFormData> = (values) => {
-    const data = modifyPayload(values);
-    console.log(data);
+
+  const onSubmit: SubmitHandler<TPatientRegisterFormData> = async (values) => {
+    const formData = modifyPayload(values);
+    // console.log(data);
+
+    try {
+      const res = await registerPatient(formData);
+      console.log(res);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
