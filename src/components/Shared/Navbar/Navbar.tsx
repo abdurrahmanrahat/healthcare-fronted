@@ -6,6 +6,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   const userInfo = getUserInfo();
+  console.log(userInfo);
 
   return (
     <Container>
