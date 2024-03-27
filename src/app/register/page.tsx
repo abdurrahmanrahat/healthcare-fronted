@@ -1,6 +1,7 @@
 "use client";
 
 import assets from "@/assets";
+import { modifyPayload } from "@/utils/modifyPayload";
 import {
   Box,
   Button,
@@ -31,8 +32,10 @@ const RegisterPage = () => {
     watch,
     formState: { errors },
   } = useForm<TPatientRegisterFormData>();
-  const onSubmit: SubmitHandler<TPatientRegisterFormData> = (data) =>
+  const onSubmit: SubmitHandler<TPatientRegisterFormData> = (values) => {
+    const data = modifyPayload(values);
     console.log(data);
+  };
 
   return (
     <Container>
