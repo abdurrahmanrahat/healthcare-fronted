@@ -10,8 +10,30 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type TFormValues = {
+  email: string;
+  password: string;
+};
 
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TFormValues>();
+
+  const onSubmit: SubmitHandler<TFormValues> = async (values) => {
+    console.log(values);
+
+    try {
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Container>
       <Stack
@@ -50,7 +72,7 @@ const LoginPage = () => {
 
           {/* form field */}
           <Box>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
                   <TextField
@@ -59,6 +81,7 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("email")}
                   />
                 </Grid>
                 <Grid item md={12}>
@@ -68,6 +91,7 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
               </Grid>
