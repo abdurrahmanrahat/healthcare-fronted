@@ -1,6 +1,7 @@
 "use client";
 
 import assets from "@/assets";
+import { userLogin } from "@/services/actions/userLogin";
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export type TFormValues = {
   email: string;
@@ -20,6 +22,7 @@ export type TFormValues = {
 };
 
 const LoginPage = () => {
+  // const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -28,9 +31,15 @@ const LoginPage = () => {
   } = useForm<TFormValues>();
 
   const onSubmit: SubmitHandler<TFormValues> = async (values) => {
-    console.log(values);
+    // console.log(values);
 
     try {
+      const res = await userLogin(values);
+      // console.log(res);
+      if (res.data.accessToken) {
+        toast.success(res.message);
+        // router.push("/");
+      }
     } catch (error: any) {
       console.log(error.message);
     }
