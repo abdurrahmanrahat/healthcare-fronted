@@ -1,3 +1,5 @@
+"use client";
+
 import assets from "@/assets";
 import {
   Box,
@@ -12,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-type TFormValues = {
+export type TFormValues = {
   email: string;
   password: string;
 };
@@ -107,6 +109,7 @@ const LoginPage = () => {
                   marginY: "16px",
                 }}
                 fullWidth={true}
+                type="submit"
               >
                 Login
               </Button>
