@@ -1,3 +1,5 @@
+"use client";
+
 import assets from "@/assets";
 import {
   Box,
@@ -10,8 +12,22 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type TInputs = {
+  example: string;
+  exampleRequired: string;
+};
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TInputs>();
+  const onSubmit: SubmitHandler<TInputs> = (data) => console.log(data);
+
   return (
     <Container>
       <Stack
@@ -50,7 +66,7 @@ const RegisterPage = () => {
 
           {/* form field */}
           <Box>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
                   <TextField
@@ -59,6 +75,7 @@ const RegisterPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("example")}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -105,6 +122,7 @@ const RegisterPage = () => {
                   marginY: "16px",
                 }}
                 fullWidth={true}
+                type="submit"
               >
                 Register
               </Button>
