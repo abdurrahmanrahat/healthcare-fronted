@@ -37,7 +37,6 @@ const LoginPage = () => {
 
     try {
       const res = await userLogin(values);
-      // console.log(res);
       if (res?.data?.accessToken) {
         toast.success(res.message);
         storeUserInfo({ accessToken: res.data.accessToken });

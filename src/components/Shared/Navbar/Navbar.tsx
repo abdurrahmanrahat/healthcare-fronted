@@ -3,14 +3,18 @@
 import { getUserInfo, removeUser } from "@/services/auth.services";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
+
   const userInfo = getUserInfo();
   // console.log(isLoggedIn());
 
   // logout user
   const handleLogout = () => {
     removeUser();
+    router.refresh();
   };
 
   return (
