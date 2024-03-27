@@ -14,7 +14,9 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type TPatientRegisterFormData = {
   password: string;
@@ -27,6 +29,7 @@ type TPatientRegisterFormData = {
 };
 
 const RegisterPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -40,7 +43,11 @@ const RegisterPage = () => {
 
     try {
       const res = await registerPatient(formData);
-      console.log(res);
+      // console.log(res);
+      if (res?.data?.id) {
+        toast.success(res.message);
+        router.push("/login");
+      }
     } catch (error: any) {
       console.log(error.message);
     }
@@ -77,7 +84,7 @@ const RegisterPage = () => {
             </Box>
             <Box>
               <Typography variant="h6" fontWeight={600}>
-                Login PH HealthCare
+                Patient Register
               </Typography>
             </Box>
           </Stack>
