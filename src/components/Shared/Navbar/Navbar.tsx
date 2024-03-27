@@ -42,9 +42,13 @@ const Navbar = () => {
           </Typography>
         </Stack>
 
-        <Button component={Link} href="/login">
-          Login
-        </Button>
+        {userInfo.userId ? (
+          <Button color="error">Logout</Button>
+        ) : (
+          <Button component={Link} href="/login">
+            Login
+          </Button>
+        )}
       </Stack>
     </Container>
   );
