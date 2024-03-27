@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -23,7 +24,7 @@ export type TFormValues = {
 };
 
 const LoginPage = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -40,7 +41,7 @@ const LoginPage = () => {
       if (res?.data?.accessToken) {
         toast.success(res.message);
         storeUserInfo({ accessToken: res.data.accessToken });
-        // router.push("/");
+        router.push("/");
       }
     } catch (error: any) {
       console.log(error.message);
