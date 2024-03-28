@@ -1,3 +1,5 @@
+export * from "./common";
+
 export type TDoctor = {
   id: string;
   email: string;
