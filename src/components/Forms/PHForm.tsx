@@ -6,10 +6,23 @@ import {
   useForm,
 } from "react-hook-form";
 
-type TFormProps = { children: ReactNode; onSubmit: SubmitHandler<FieldValues> };
+type TFormConfig = {
+  resolver?: any;
+};
 
-const PHForm = ({ children, onSubmit }: TFormProps) => {
-  const methods = useForm();
+type TFormProps = {
+  children: ReactNode;
+  onSubmit: SubmitHandler<FieldValues>;
+} & TFormConfig;
+
+const PHForm = ({ children, onSubmit, resolver }: TFormProps) => {
+  // zod validation config
+  const formConfig: TFormConfig = {};
+  if (resolver) {
+    formConfig["resolver"] = resolver;
+  }
+
+  const methods = useForm(formConfig);
 
   const submit: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
