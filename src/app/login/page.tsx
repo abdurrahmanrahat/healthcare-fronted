@@ -77,7 +77,7 @@ const LoginPage = () => {
             </Box>
           </Stack>
 
-          {/* error message */}
+          {/* show backed error message */}
           {error && (
             <Box>
               <Typography
