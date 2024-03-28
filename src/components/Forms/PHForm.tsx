@@ -8,6 +8,7 @@ import {
 
 type TFormConfig = {
   resolver?: any;
+  defaultValues?: Record<string, any>;
 };
 
 type TFormProps = {
@@ -15,11 +16,20 @@ type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const PHForm = ({ children, onSubmit, resolver }: TFormProps) => {
+const PHForm = ({
+  children,
+  onSubmit,
+  resolver,
+  defaultValues,
+}: TFormProps) => {
   // zod validation config
   const formConfig: TFormConfig = {};
   if (resolver) {
     formConfig["resolver"] = resolver;
+  }
+  if (defaultValues) {
+    // for showing error message
+    formConfig["defaultValues"] = defaultValues;
   }
 
   const methods = useForm(formConfig);
