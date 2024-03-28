@@ -38,7 +38,12 @@ const Footer = () => {
         </Stack>
 
         {/* border */}
-        <div className="border-b-[1px] border-dashed"></div>
+        {/* <div className="border-b-[1px] border-dashed"></div> */}
+        <Box
+          sx={{
+            border: "1px dashed lightgray",
+          }}
+        ></Box>
 
         {/* logo and policy */}
         <Stack
