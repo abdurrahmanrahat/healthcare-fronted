@@ -11,6 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+
+export const validationSchema = z.object({
+  email: z.string().email("Put a valid Email Address."),
+  password: z.string().min(6, "Password at least 6 characters"),
+});
 
 const LoginPage = () => {
   const router = useRouter();
