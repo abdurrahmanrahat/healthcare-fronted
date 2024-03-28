@@ -13,6 +13,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+
+export const patientValidationSchema = z.object({
+  name: z.string().min(1, "Enter your name"),
+  email: z.string().email("Enter your email"),
+  contactNumber: z.string().regex(/^\d{11}$/, "Enter your phone number"),
+  address: z.string().min(1, "Enter your address"),
+});
+
+export const validationSchema = z.object({
+  password: z.string().min(6, "Password at least 6 characters"),
+  patient: patientValidationSchema,
+});
 
 const RegisterPage = () => {
   const router = useRouter();
