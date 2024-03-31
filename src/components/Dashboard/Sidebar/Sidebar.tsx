@@ -65,11 +65,11 @@ const Sidebar = () => {
           P
           <Box component="span" color="primary.main">
             H
-          </Box>{" "}
+          </Box>
           HealthCare
         </Typography>
       </Stack>
-      {drawer}
+      <Box>{drawer}</Box>
     </Box>
   );
 };
