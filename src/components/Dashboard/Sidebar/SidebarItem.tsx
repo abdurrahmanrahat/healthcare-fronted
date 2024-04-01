@@ -1,6 +1,4 @@
 import { TDrawerItem } from "@/types";
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import {
   ListItem,
   ListItemButton,
@@ -8,21 +6,35 @@ import {
   ListItemText,
 } from "@mui/material";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // type
 type TItemProps = {
   item: TDrawerItem;
-  index: number;
 };
 
-const SidebarItem = ({ item, index }: TItemProps) => {
+const SidebarItem = ({ item }: TItemProps) => {
+  const linkPath = `/dashboard/${item.path}`;
+
+  const pathname = usePathname();
+  // console.log(pathname);
+
   return (
-    <Link href="/">
-      <ListItem disablePadding>
+    <Link href={linkPath}>
+      <ListItem
+        disablePadding
+        sx={{
+          ...(pathname === linkPath
+            ? {
+                borderRight: "3px solid #1586FD",
+                "& svg": { color: "#1586FD" },
+              }
+            : {}),
+          mb: "6px",
+        }}
+      >
         <ListItemButton>
-          <ListItemIcon>
-            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-          </ListItemIcon>
+          <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
           <ListItemText primary={item.title} />
         </ListItemButton>
       </ListItem>
