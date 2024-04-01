@@ -1,37 +1,12 @@
 import assets from "@/assets";
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { TUserRole } from "@/types";
+import { drawerItems } from "@/utils/drawerItem";
+import { Box, List, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import SidebarItem from "./SidebarItem";
 
 const Sidebar = () => {
-  const drawer = (
-    <div>
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
   return (
     <Box>
       <Stack
@@ -55,7 +30,11 @@ const Sidebar = () => {
           HealthCare
         </Typography>
       </Stack>
-      <Box>{drawer}</Box>
+      <List>
+        {drawerItems("admin" as TUserRole).map((item, index) => (
+          <SidebarItem key={index} item={item} index={index} />
+        ))}
+      </List>
     </Box>
   );
 };

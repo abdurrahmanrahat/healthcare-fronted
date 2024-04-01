@@ -1,5 +1,5 @@
-import { USER_ROLE } from "@/constants/tole";
-import { TDrawerItems, TUserRole } from "@/types";
+import { USER_ROLE } from "@/constants/role";
+import { TDrawerItem, TUserRole } from "@/types";
 
 // icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -9,8 +9,8 @@ import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import TryIcon from "@mui/icons-material/Try";
 
-export const drawerItems = (role: TUserRole): TDrawerItems[] => {
-  const roleMenus: TDrawerItems[] = [];
+export const drawerItems = (role: TUserRole): TDrawerItem[] => {
+  const roleMenus: TDrawerItem[] = [];
 
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
