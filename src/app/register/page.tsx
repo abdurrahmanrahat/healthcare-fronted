@@ -62,7 +62,7 @@ const RegisterPage = () => {
         if (userRes?.data?.accessToken) {
           // toast.success(res.message);
           storeUserInfo({ accessToken: userRes.data.accessToken });
-          router.push("/");
+          router.push("/dashboard");
         }
       } else {
         setError(res?.message);
@@ -125,19 +125,7 @@ const RegisterPage = () => {
               </Typography>
             </Box>
           ) : (
-            <Box>
-              <Typography
-                sx={{
-                  backgroundColor: "red",
-                  padding: "1px",
-                  borderRadius: "2px",
-                  color: "#fff",
-                  marginTop: "5px",
-                }}
-              >
-                Something went wrong!!
-              </Typography>
-            </Box>
+            ""
           )}
 
           {/* form field */}
