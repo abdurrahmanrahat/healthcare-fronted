@@ -1,9 +1,7 @@
 "use client";
 
 import CloseIcon from "@mui/icons-material/Close";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
@@ -28,10 +26,11 @@ type TModalProps = {
 };
 
 export default function PHModal({
-  open,
+  open = false,
   setOpen,
-  title,
+  title = "",
   children,
+  sx,
 }: TModalProps) {
   const handleClose = () => {
     setOpen(false);
@@ -43,7 +42,7 @@ export default function PHModal({
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        // sx={{ ...sx }}
+        sx={{ ...sx }}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           {title}
@@ -61,11 +60,6 @@ export default function PHModal({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>{children}</DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
   );
