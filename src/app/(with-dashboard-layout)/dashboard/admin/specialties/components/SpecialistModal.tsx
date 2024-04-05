@@ -21,7 +21,7 @@ const SpecialistModal = ({ open, setOpen }: TModalProps) => {
             <PHInput name="title" label="Title" />
           </Grid>
           <Grid item md={6}>
-            <PHFileUploader />
+            <PHFileUploader name="file" label="Upload File" />
           </Grid>
         </Grid>
 
