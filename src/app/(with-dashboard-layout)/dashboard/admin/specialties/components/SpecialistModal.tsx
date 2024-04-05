@@ -1,3 +1,4 @@
+import PHFileUploader from "@/components/Forms/PHFileUploader";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHModal from "@/components/Shared/PHModal/PHModal";
@@ -20,7 +21,7 @@ const SpecialistModal = ({ open, setOpen }: TModalProps) => {
             <PHInput name="title" label="Title" />
           </Grid>
           <Grid item md={6}>
-            <PHInput name="title" label="Title" />
+            <PHFileUploader />
           </Grid>
         </Grid>
 
