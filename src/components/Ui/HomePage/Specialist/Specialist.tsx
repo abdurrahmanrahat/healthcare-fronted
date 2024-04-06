@@ -34,7 +34,7 @@ const Specialist = async () => {
 
         {/* display data in card */}
         <Stack direction="row" gap={4} mt={5}>
-          {specialists?.map((item: TSpecialist) => (
+          {specialists?.slice(0, 6).map((item: TSpecialist) => (
             <Box
               key={item.id}
               sx={{
