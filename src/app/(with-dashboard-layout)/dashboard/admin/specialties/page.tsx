@@ -1,8 +1,10 @@
 "use client";
 
 import { useGetAllSpecialtiesQuery } from "@/redux/api/specialtiesApi";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Image from "next/image";
 import { useState } from "react";
 import SpecialtyModal from "./components/SpecialtyModal";
 
@@ -11,12 +13,36 @@ const SpecialtiesPage = () => {
 
   const { data, isLoading } = useGetAllSpecialtiesQuery({});
 
+  // handle delete
+  const handleDelete = (id: string) => {
+    console.log(id);
+  };
+
   const columns: GridColDef[] = [
-    { field: "title", headerName: "Title", width: 100 },
+    { field: "title", headerName: "Title", width: 300 },
     {
       field: "icon",
       headerName: "Icon",
-      width: 100,
+      width: 300,
+      renderCell: ({ row }) => {
+        return (
+          <Box>
+            <Image src={row.icon} width={20} height={20} alt="icon" />
+          </Box>
+        );
+      },
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 400,
+      renderCell: ({ row }) => {
+        return (
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        );
+      },
     },
   ];
 
@@ -31,7 +57,7 @@ const SpecialtiesPage = () => {
 
       {/* display specialties with table */}
       {!isLoading ? (
-        <Box>
+        <Box my={2}>
           <DataGrid rows={data} columns={columns} />
         </Box>
       ) : (
