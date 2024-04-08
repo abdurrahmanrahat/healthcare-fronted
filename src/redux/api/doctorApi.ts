@@ -1,3 +1,4 @@
+import { TDoctor, TMeta } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -13,14 +14,21 @@ const doctorApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.doctor],
     }),
 
-    // getAllDoctors: build.query({
-    //   query: () => ({
-    //     url: "/doctor",
-    //     method: "GET",
-    //   }),
-    //   providesTags: [tagTypes.doctor],
-    // }),
+    getAllDoctors: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: "/doctor",
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: TDoctor[], meta: TMeta) => {
+        return {
+          doctors: response,
+          meta: meta,
+        };
+      },
+      providesTags: [tagTypes.doctor],
+    }),
   }),
 });
 
-export const { useCreateDoctorMutation } = doctorApi;
+export const { useCreateDoctorMutation, useGetAllDoctorsQuery } = doctorApi;
