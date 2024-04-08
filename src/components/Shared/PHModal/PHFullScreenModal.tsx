@@ -1,21 +1,19 @@
-"use client";
-
 import CloseIcon from "@mui/icons-material/Close";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { DialogContent, DialogTitle, SxProps } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { SxProps, styled } from "@mui/material/styles";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
 import * as React from "react";
+import { BootstrapDialog } from "./PHModal";
 
-export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement;
   },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 type TModalProps = {
   open: boolean;
@@ -25,7 +23,7 @@ type TModalProps = {
   sx?: SxProps;
 };
 
-export default function PHModal({
+export default function PHFullScreenModal({
   open = false,
   setOpen,
   title = "",
@@ -39,10 +37,12 @@ export default function PHModal({
   return (
     <React.Fragment>
       <BootstrapDialog
+        fullScreen
         onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
         open={open}
+        aria-labelledby="customized-dialog-title"
         sx={{ ...sx }}
+        TransitionComponent={Transition}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           {title}
