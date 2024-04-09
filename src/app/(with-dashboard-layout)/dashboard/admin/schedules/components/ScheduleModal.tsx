@@ -2,11 +2,13 @@ import PHDatePicker from "@/components/Forms/PHDatePicker";
 import PHForm from "@/components/Forms/PHForm";
 import PHTimePicker from "@/components/Forms/PHTimePicker";
 import PHModal from "@/components/Shared/PHModal/PHModal";
+import { useCreateScheduleMutation } from "@/redux/api/scheduleApi";
 import { dateFormatter } from "@/utils/dateFormatter";
 import { timeFormatter } from "@/utils/timeFormatter";
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 type TModalProps = {
   open: boolean;
@@ -14,14 +16,25 @@ type TModalProps = {
 };
 
 const ScheduleModal = ({ open, setOpen }: TModalProps) => {
+  const [createSchedule] = useCreateScheduleMutation();
+
   const handleScheduleForm = async (values: FieldValues) => {
-    console.log(values);
+    // console.log(values);
     values.startDate = dateFormatter(values.startDate);
     values.endDate = dateFormatter(values.endDate);
     values.startTime = timeFormatter(values.startTime);
     values.endTime = timeFormatter(values.endTime);
 
-    console.log(values);
+    try {
+      const res = await createSchedule(values).unwrap();
+      //   console.log(res);
+      if (res?.length) {
+        toast.success("Schedules created successfully");
+        setOpen(false);
+      }
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
 
   return (
