@@ -10,7 +10,11 @@ import DoctorModal from "./components/DoctorModal";
 const DoctorsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { data, isLoading } = useGetAllDoctorsQuery({});
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  query["searchTerm"] = searchTerm;
+
+  const { data, isLoading } = useGetAllDoctorsQuery({ ...query });
   // console.log(data);
   const doctors = data?.doctors;
   const meta = data?.meta;
@@ -42,7 +46,11 @@ const DoctorsPage = () => {
         <Button onClick={() => setIsModalOpen(true)}>Create New Doctor</Button>
         <DoctorModal open={isModalOpen} setOpen={setIsModalOpen} />
 
-        <TextField size="small" placeholder="Search Doctor..." />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="small"
+          placeholder="Search Doctor..."
+        />
       </Stack>
 
       {/* display doctors with table */}
