@@ -1,11 +1,15 @@
 "use client";
 
-import { useGetAllDoctorsQuery } from "@/redux/api/doctorApi";
+import {
+  useDeleteDoctorMutation,
+  useGetAllDoctorsQuery,
+} from "@/redux/api/doctorApi";
 import { useDebounced } from "@/redux/hooks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
+import { toast } from "sonner";
 import DoctorModal from "./components/DoctorModal";
 
 const DoctorsPage = () => {
@@ -27,6 +31,21 @@ const DoctorsPage = () => {
   const doctors = data?.doctors;
   const meta = data?.meta;
 
+  const [deleteDoctor] = useDeleteDoctorMutation();
+
+  // handle delete
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await deleteDoctor(id).unwrap();
+
+      if (res?.id) {
+        toast.success("Doctor deleted successfully!!");
+      }
+    } catch (error: any) {
+      console.error(error?.message);
+    }
+  };
+
   const columns: GridColDef[] = [
     { field: "name", headerName: "name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
@@ -40,7 +59,7 @@ const DoctorsPage = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton aria-label="delete">
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteIcon />
           </IconButton>
         );
