@@ -10,7 +10,7 @@ export type TDoctor = {
   registrationNumber: string;
   experience: number;
   gender: "MALE" | "FEMALE" | "OTHER";
-  appointmentFee: number;
+  apointmentFee: number;
   qualification: string;
   currentWorkingPlace: string;
   designation: string;
@@ -19,7 +19,7 @@ export type TDoctor = {
   updatedAt: string;
   averageRating: number;
   review: string[];
-  doctorSpecialties: string[];
+  doctorSpecialties?: string[];
 };
 
 export type TSpecialist = {
