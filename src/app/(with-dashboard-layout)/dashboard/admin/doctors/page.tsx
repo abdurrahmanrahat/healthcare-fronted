@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetAllDoctorsQuery } from "@/redux/api/doctorApi";
+import { useDebounced } from "@/redux/hooks";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -12,7 +13,14 @@ const DoctorsPage = () => {
 
   const query: Record<string, any> = {};
   const [searchTerm, setSearchTerm] = useState<string>("");
-  query["searchTerm"] = searchTerm;
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+  if (!!debouncedTerm) {
+    query["searchTerm"] = searchTerm;
+  }
 
   const { data, isLoading } = useGetAllDoctorsQuery({ ...query });
   // console.log(data);
