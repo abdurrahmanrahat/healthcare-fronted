@@ -1,6 +1,9 @@
 "use client";
 
-import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
+import {
+  useDeleteScheduleMutation,
+  useGetAllSchedulesQuery,
+} from "@/redux/api/scheduleApi";
 import { dateFormatter } from "@/utils/dateFormatter";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,6 +11,7 @@ import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import ScheduleModal from "./components/ScheduleModal";
 
 const SchedulesPage = () => {
@@ -34,13 +38,15 @@ const SchedulesPage = () => {
     setAllSchedules(updatedData);
   }, [schedules]);
 
+  const [deleteSchedule] = useDeleteScheduleMutation();
+
   // handle delete
   const handleDelete = async (id: string) => {
     try {
-      // const res = await deleteSpecialty(id).unwrap();
-      // if (res?.id) {
-      //   toast.success("Specialty deleted successfully!!");
-      // }
+      const res = await deleteSchedule(id).unwrap();
+      if (res?.id) {
+        toast.success("Schedule deleted successfully!!");
+      }
     } catch (error: any) {
       console.error(error?.message);
     }
