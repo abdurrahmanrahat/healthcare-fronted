@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 import { FieldValues } from "react-hook-form";
 
@@ -9,7 +9,8 @@ export const userLogin = async (data: FieldValues) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(data),
-    cache: "no-store",
+    // cache: "no-store",
+    credentials: "include", // set refresh token in the browser cookies.
   });
   const userInfo = await res.json();
 
