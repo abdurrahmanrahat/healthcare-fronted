@@ -83,6 +83,9 @@ export default function DashboardDrawer({
                 noWrap
                 component="div"
                 color="primary.main"
+                sx={{
+                  fontSize: "18px",
+                }}
               >
                 Welcome to PH HealthCare
               </Typography>
