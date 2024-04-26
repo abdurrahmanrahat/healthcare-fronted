@@ -1,4 +1,5 @@
 import PHModal from "@/components/Shared/PHModal/PHModal";
+import { useCreateDoctorScheduleMutation } from "@/redux/api/doctorScheduleApi";
 import { useGetAllSchedulesQuery } from "@/redux/api/scheduleApi";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Stack } from "@mui/material";
@@ -42,8 +43,16 @@ const DoctorScheduleModal = ({ open, setOpen }: TModalProps) => {
   const schedules = data?.schedules;
   //   console.log(schedules);
 
-  const onSubmit = () => {
+  const [createDoctorSchedule, { isLoading }] =
+    useCreateDoctorScheduleMutation();
+
+  const onSubmit = async () => {
     try {
+      const res = await createDoctorSchedule({
+        scheduleIds: selectedScheduleIds,
+      });
+      console.log(res);
+      setOpen(false);
     } catch (error: any) {
       console.error(error.message);
     }
@@ -72,11 +81,11 @@ const DoctorScheduleModal = ({ open, setOpen }: TModalProps) => {
         <LoadingButton
           size="small"
           onClick={onSubmit}
-          loading={false}
+          loading={isLoading}
           loadingIndicator="Submitting..."
           variant="contained"
         >
-          <span>Fetch data</span>
+          <span>Submit</span>
         </LoadingButton>
       </Stack>
     </PHModal>
