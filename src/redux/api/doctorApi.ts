@@ -51,7 +51,7 @@ const doctorApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `/doctor/${data.id}`,
         method: "PATCH",
-        body: data.body,
+        data: data.body,
       }),
       invalidatesTags: [tagTypes.doctor],
     }),
