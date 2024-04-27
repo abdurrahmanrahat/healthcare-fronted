@@ -6,14 +6,16 @@ import {
   useUpdateMYProfileMutation,
 } from "@/redux/api/myProfile";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Container } from "@mui/material";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { Box, Button, Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import Image from "next/image";
-// import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { useState } from "react";
 import DoctorInformation from "./components/DoctorInformation";
+import ProfileUpdateModal from "./components/ProfileUpdateModal";
 
 const Profile = () => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading } = useGetMYProfileQuery(undefined);
   const [updateMYProfile, { isLoading: updating }] =
@@ -33,11 +35,11 @@ const Profile = () => {
 
   return (
     <>
-      {/* <ProfileUpdateModal
+      <ProfileUpdateModal
         open={isModalOpen}
         setOpen={setIsModalOpen}
         id={data?.id}
-      /> */}
+      />
       <Container>
         <Grid container spacing={2}>
           <Grid xs={12} md={4}>
@@ -47,6 +49,7 @@ const Profile = () => {
                 width: "100%",
                 overflow: "hidden",
                 borderRadius: 1,
+                marginBottom: 1,
               }}
             >
               <Image
@@ -69,13 +72,13 @@ const Profile = () => {
               />
             )}
 
-            {/* <Button
+            <Button
               fullWidth
               endIcon={<ModeEditIcon />}
               onClick={() => setIsModalOpen(true)}
             >
               Edit Profile
-            </Button> */}
+            </Button>
           </Grid>
           <Grid xs={12} md={8}>
             <DoctorInformation data={data} />
