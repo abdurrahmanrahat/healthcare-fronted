@@ -2,6 +2,7 @@ import { USER_ROLE } from "@/constants/role";
 import { TDrawerItem, TUserRole } from "@/types";
 
 // icons
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
@@ -11,6 +12,14 @@ import TryIcon from "@mui/icons-material/Try";
 
 export const drawerItems = (role: TUserRole): TDrawerItem[] => {
   const roleMenus: TDrawerItem[] = [];
+
+  const defaultMenus = [
+    {
+      title: "Profile",
+      path: `${role}/profile`,
+      icon: AccountCircleOutlinedIcon,
+    },
+  ];
 
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
@@ -107,5 +116,5 @@ export const drawerItems = (role: TUserRole): TDrawerItem[] => {
       break;
   }
 
-  return [...roleMenus];
+  return [...roleMenus, ...defaultMenus];
 };
