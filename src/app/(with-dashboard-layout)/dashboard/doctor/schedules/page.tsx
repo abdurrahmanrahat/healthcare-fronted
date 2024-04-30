@@ -2,9 +2,9 @@
 
 import { useGetAllDoctorSchedulesQuery } from "@/redux/api/doctorScheduleApi";
 import { dateFormatter } from "@/utils/dateFormatter";
+import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button, IconButton, Pagination } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -13,23 +13,39 @@ import DoctorScheduleModal from "./components/DoctorScheduleModal";
 const DoctorSchedulePage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  const query: Record<string, any> = {};
+
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(4);
+
+  query["page"] = page;
+  query["limit"] = limit;
+
+  // handle pagination
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   const [allSchedules, setAllSchedules] = useState<any>([]);
 
-  const { data, isLoading } = useGetAllDoctorSchedulesQuery({});
+  const { data, isLoading } = useGetAllDoctorSchedulesQuery({ ...query });
   //   console.log(data);
 
   const schedules = data?.doctorSchedules;
   //   console.log(schedules);
   const meta = data?.meta;
 
+  let pageCount: number;
+  if (meta?.total) {
+    pageCount = Math.ceil(meta?.total / limit);
+  }
+
   useEffect(() => {
     const updatedData = schedules?.map((schedule: any, index) => {
       //   console.log(schedule);
       return {
-        sl: index + 1,
-        id: schedule.doctorId,
+        id: schedule.scheduleId,
         startDate: dateFormatter(schedule?.schedule.startDate),
-        // endDate: dateFormatter(schedule?.schedule.endDate),
         startTime: dayjs(schedule?.schedule.startDate).format("hh:mm a"),
         endTime: dayjs(schedule?.schedule.endDate).format("hh:mm a"),
       };
@@ -39,9 +55,7 @@ const DoctorSchedulePage = () => {
   }, [schedules]);
 
   const columns: GridColDef[] = [
-    { field: "sl", headerName: "SL", flex: 1 },
     { field: "startDate", headerName: "Start Date", flex: 1 },
-    // { field: "endDate", headerName: "End Date", flex: 1 },
     { field: "startTime", headerName: "Start Time", flex: 1 },
     { field: "endTime", headerName: "End Time", flex: 1 },
     {
@@ -59,9 +73,9 @@ const DoctorSchedulePage = () => {
             >
               <DeleteIcon sx={{ color: "red" }} />
             </IconButton>
-            <IconButton aria-label="edit">
+            {/* <IconButton aria-label="edit">
               <EditIcon />
-            </IconButton>
+            </IconButton> */}
           </Box>
         );
       },
@@ -70,7 +84,13 @@ const DoctorSchedulePage = () => {
 
   return (
     <Box>
-      <Button onClick={() => setIsModalOpen(true)}>
+      <Button
+        onClick={() => setIsModalOpen(true)}
+        endIcon={<AddIcon />}
+        sx={{
+          my: 1,
+        }}
+      >
         Create Doctor Schedule
       </Button>
       <DoctorScheduleModal open={isModalOpen} setOpen={setIsModalOpen} />
@@ -78,7 +98,31 @@ const DoctorSchedulePage = () => {
       {/* display doctor schedules with table */}
       {!isLoading ? (
         <Box my={2}>
-          <DataGrid rows={allSchedules ?? []} columns={columns} />
+          <DataGrid
+            rows={allSchedules ?? []}
+            columns={columns}
+            hideFooterPagination
+            slots={{
+              footer: () => {
+                return (
+                  <Box
+                    sx={{
+                      mb: 2,
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Pagination
+                      color="primary"
+                      count={pageCount}
+                      page={page}
+                      onChange={handleChange}
+                    />
+                  </Box>
+                );
+              },
+            }}
+          />
         </Box>
       ) : (
         <h1>Loading...</h1>
