@@ -14,9 +14,15 @@ export const userLogin = async (data: FieldValues) => {
     credentials: "include", // set refresh token in the browser cookies.
   });
   const userInfo = await res.json();
+  console.log(userInfo);
+
+  const passwordChangeRequired = userInfo.data.needPasswordChange;
 
   if (userInfo?.data.accessToken) {
-    setAccessToken(userInfo.data.accessToken, { redirect: "/dashboard" });
+    setAccessToken(userInfo.data.accessToken, {
+      redirect: "/dashboard",
+      passwordChangeRequired,
+    });
   }
 
   return userInfo;

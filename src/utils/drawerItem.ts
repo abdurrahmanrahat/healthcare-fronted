@@ -6,6 +6,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
+import KeyIcon from "@mui/icons-material/Key";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import TryIcon from "@mui/icons-material/Try";
@@ -18,6 +19,11 @@ export const drawerItems = (role: TUserRole): TDrawerItem[] => {
       title: "Profile",
       path: `${role}/profile`,
       icon: AccountCircleOutlinedIcon,
+    },
+    {
+      title: "Change Password",
+      path: `change-password`,
+      icon: KeyIcon,
     },
   ];
 

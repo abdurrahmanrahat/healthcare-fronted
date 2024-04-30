@@ -41,11 +41,6 @@ export function middleware(request: NextRequest) {
   //     return NextResponse.next();
   //   }
 
-  //   // doctor check
-  //   if (role === "DOCTOR" && pathname.startsWith("/dashboard/doctor")) {
-  //     return NextResponse.next();
-  //   }
-
   type TRole = keyof typeof roleBasedPrivateRoutes;
 
   // role based protected
