@@ -50,7 +50,18 @@ const TopRatedDoctors = async () => {
           {doctors?.map((doctor: TDoctor) => (
             <Grid item key={doctor.id} md={4}>
               <Card>
-                <Box>
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: 300,
+                    "& img": {
+                      width: "100%",
+                      height: "100%",
+                      overflow: "hidden",
+                      objectFit: "cover",
+                    },
+                  }}
+                >
                   <Image
                     src={doctor.profilePhoto}
                     width={500}
