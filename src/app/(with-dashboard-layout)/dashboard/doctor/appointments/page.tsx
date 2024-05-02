@@ -1,26 +1,33 @@
 "use client";
-import PhChips from "@/components/Shared/PhChip/PhChips";
 import { useGetMyAppointmentsQuery } from "@/redux/api/appointmentApi";
 import { dateFormatter } from "@/utils/dateFormatter";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import { Box, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
-import { getTimeIn12HourFormat } from "../../doctor/schedules/components/MultipleSelectField";
+import { getTimeIn12HourFormat } from "../schedules/components/MultipleSelectField";
 
 const PatientAppointmentsPage = () => {
   const { data, isLoading } = useGetMyAppointmentsQuery({});
   const appointments = data?.appointments;
   const meta = data?.meta;
-  console.log(data);
+  // console.log(appointments);
 
   const columns: GridColDef[] = [
     {
       field: "name",
-      headerName: "Doctor Name",
+      headerName: "Patient Name",
       flex: 1,
       renderCell: ({ row }) => {
-        return row.doctor.name;
+        return row?.patient?.name;
+      },
+    },
+    {
+      field: "contactNumber",
+      headerName: "Contact Number",
+      flex: 1,
+      renderCell: ({ row }) => {
+        return row?.patient?.contactNumber;
       },
     },
     {
@@ -40,7 +47,7 @@ const PatientAppointmentsPage = () => {
       align: "center",
       flex: 1,
       renderCell: ({ row }) => {
-        return getTimeIn12HourFormat(row.schedule.startDate);
+        return getTimeIn12HourFormat(row?.schedule?.startDate);
       },
     },
 
@@ -50,13 +57,6 @@ const PatientAppointmentsPage = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: ({ row }) => {
-        return row.paymentStatus === "PAID" ? (
-          <PhChips label={row.paymentStatus} type="success" />
-        ) : (
-          <PhChips label={row.paymentStatus} type="error" />
-        );
-      },
     },
     {
       field: "action",
@@ -66,17 +66,11 @@ const PatientAppointmentsPage = () => {
       align: "center",
       renderCell: ({ row }) => {
         return (
-          <IconButton
-            component={Link}
-            href={`/video?videoCallingId=${row?.videoCallingId}`}
-            // disabled={row.paymentStatus === "UNPAID"}
-          >
-            <VideocamIcon
-              sx={{
-                color: row.paymentStatus === "PAID" ? "primary.main" : "",
-              }}
-            />
-          </IconButton>
+          <Link href={`/video?videoCallingId=${row?.videoCallingId}`}>
+            <IconButton>
+              <VideocamIcon />
+            </IconButton>
+          </Link>
         );
       },
     },
