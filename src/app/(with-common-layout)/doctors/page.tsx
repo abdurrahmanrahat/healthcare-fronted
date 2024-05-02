@@ -29,7 +29,7 @@ const Doctors = async ({ searchParams }: PropType) => {
 
       <ScrollCategory specialties={searchParams.specialties} />
 
-      <Box sx={{ mt: 2, p: 3, bgcolor: "secondary.light" }}>
+      <Box sx={{ mt: 4, mb: 6, p: 3, bgcolor: "secondary.light" }}>
         {data?.map((doctor: TDoctor, index: number) => (
           <Box key={doctor.id}>
             <DoctorCard doctor={doctor} />

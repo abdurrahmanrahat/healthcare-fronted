@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const TopRatedDoctors = async () => {
   const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
@@ -101,7 +102,9 @@ const TopRatedDoctors = async () => {
             textAlign: "center",
           }}
         >
-          <Button variant="outlined">View All Doctors</Button>
+          <Button variant="outlined" component={Link} href={"/doctors"}>
+            View All Doctors
+          </Button>
         </Box>
       </Container>
     </Box>
