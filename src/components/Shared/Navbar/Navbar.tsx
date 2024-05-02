@@ -61,7 +61,7 @@ const Navbar = () => {
         </Stack>
 
         {/* button */}
-        {userInfo?.userId ? (
+        {userInfo ? (
           <Button color="error" onClick={handleLogout}>
             Logout
           </Button>

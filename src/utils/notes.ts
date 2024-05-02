@@ -8,7 +8,7 @@
 /**
  * ---- ADMIN INFO ----
  * email: rahathossain@gmail.com
- * pass: 123456
+ * pass: 654321
  *
  */
 
