@@ -1,7 +1,9 @@
 "use client";
 
 import { getTimeIn12HourFormat } from "@/app/(with-dashboard-layout)/dashboard/doctor/schedules/components/MultipleSelectField";
+import { useCreateAppointmentMutation } from "@/redux/api/appointmentApi";
 import { useGetAllDoctorSchedulesQuery } from "@/redux/api/doctorScheduleApi";
+import { useInitialPaymentMutation } from "@/redux/api/paymentApi";
 import { TDoctorSchedule } from "@/types/doctor";
 
 import { dateFormatter } from "@/utils/dateFormatter";
@@ -9,11 +11,14 @@ import { dateFormatter } from "@/utils/dateFormatter";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 dayjs.extend(utc);
 
 const DoctorScheduleSlots = ({ id }: { id: string }) => {
   const [scheduleId, setScheduleId] = useState("");
+
+  const router = useRouter();
 
   const query: Record<string, any> = {};
 
@@ -48,7 +53,30 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
     (doctor: TDoctorSchedule) => !doctor.isBooked
   );
 
-  const handleBookAppointment = async () => {};
+  const [createAppointment] = useCreateAppointmentMutation();
+  const [initialPayment] = useInitialPaymentMutation();
+
+  const handleBookAppointment = async () => {
+    try {
+      if (id && scheduleId) {
+        const res = await createAppointment({
+          doctorId: id,
+          scheduleId,
+        }).unwrap();
+
+        // payment initialize
+        if (res.id) {
+          const payRes = await initialPayment(res?.id).unwrap();
+
+          if (payRes.paymentUrl) {
+            router.push(payRes.paymentUrl);
+          }
+        }
+      }
+    } catch (error: any) {
+      console.log(error?.message);
+    }
+  };
 
   return (
     <Box mb={5}>
